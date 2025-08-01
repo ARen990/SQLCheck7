@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}แก้ไขโน้ต{% endblock %}
+{% block body %}
+<div class="container my-4">
+    <h2 class="mb-4">แก้ไขโน้ต</h2>
+    <form method="POST">
+        {{ form.csrf_token }}
+        <div class="mb-3">
+            {{ form.title.label(class="form-label") }}
+            {{ form.title(class="form-control") }}
+            {% if form.title.errors %}
+                <div class="text-danger">
+                    {% for error in form.title.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            {{ form.description.label(class="form-label") }}
+            {{ form.description(class="form-control", rows="5") }}
+            {% if form.description.errors %}
+                <div class="text-danger">
+                    {% for error in form.description.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            {{ form.tags.label(class="form-label") }}
+            {# TagListField คาดหวังค่าที่คั่นด้วยคอมมา #}
+            {{ form.tags(class="form-control", placeholder="ใส่แท็ก คั่นด้วยคอมมา (เช่น Python, Flask, Web Dev)") }}
+            {% if form.tags.errors %}
+                <div class="text-danger">
+                    {% for error in form.tags.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary">อัปเดตโน้ต</button>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">ยกเลิก</a>
+    </form>
+</div>
+{% endblock %}
